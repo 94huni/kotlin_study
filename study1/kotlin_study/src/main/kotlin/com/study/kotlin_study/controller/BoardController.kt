@@ -4,8 +4,8 @@ import com.study.kotlin_study.dto.request.BoardCreateRequest
 import com.study.kotlin_study.dto.response.BoardDTO
 import com.study.kotlin_study.entity.Board
 import com.study.kotlin_study.entity.Member
-import com.study.kotlin_study.service.MemberService
 import com.study.kotlin_study.service.impl.BoardService
+import com.study.kotlin_study.service.impl.MemberService
 import jakarta.servlet.http.HttpSession
 import org.springframework.web.bind.annotation.*
 
