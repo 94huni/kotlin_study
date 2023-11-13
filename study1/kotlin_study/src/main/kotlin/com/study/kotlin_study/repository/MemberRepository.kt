@@ -1,0 +1,8 @@
+package com.study.kotlin_study.repository
+
+import com.study.kotlin_study.entity.Member
+import org.springframework.data.repository.CrudRepository
+
+interface MemberRepository : CrudRepository<Member, Long>{
+    fun findByEmail(email: String): Member
+}
