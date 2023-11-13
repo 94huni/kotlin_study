@@ -4,9 +4,11 @@ import com.study.kotlin_study.dto.request.LoginRequest
 import com.study.kotlin_study.dto.request.SignUpRequest
 import com.study.kotlin_study.service.MemberServiceImpl
 import jakarta.servlet.http.HttpSession
+import org.springframework.http.HttpStatus
 import org.springframework.web.bind.annotation.PostMapping
 import org.springframework.web.bind.annotation.RequestBody
 import org.springframework.web.bind.annotation.RequestMapping
+import org.springframework.web.bind.annotation.ResponseStatus
 import org.springframework.web.bind.annotation.RestController
 
 @RestController
@@ -24,6 +26,7 @@ class MemberController(
     }
 
     @PostMapping("/sign-up")
+    @ResponseStatus(value = HttpStatus.CREATED)
     fun signUp(@RequestBody signUpRequest: SignUpRequest): String {
         return memberService.signUp(signUpRequest)
     }
