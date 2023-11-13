@@ -9,4 +9,6 @@ interface BoardService {
     fun getBoard(boardId: Long): BoardDTO
 
     fun createBoard(request: BoardCreateRequest, member: Member): BoardDTO
+
+    fun modifyBoard(request: BoardCreateRequest, boardId: Long , member: Member)
 }
