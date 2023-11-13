@@ -6,14 +6,12 @@ import jakarta.persistence.GenerationType
 import jakarta.persistence.Id
 
 @Entity
-data class Member(
+class Member(
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
-    val id: Long,
+    val id: Long? = null,
     val name: String,
     val nickname: String,
     val email: String?,
     val password: String,
     val phone: String
-) {
-
-}
+)
