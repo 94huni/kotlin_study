@@ -4,13 +4,14 @@ import com.study.kotlin_study.dto.request.LoginRequest
 import com.study.kotlin_study.dto.request.SignUpRequest
 import com.study.kotlin_study.entity.Member
 import com.study.kotlin_study.repository.MemberRepository
+import com.study.kotlin_study.service.impl.MemberService
 import org.springframework.stereotype.Service
 
 @Service
-class MemberService (
+class MemberServiceImpl (
     private val memberRepository: MemberRepository
-) {
-    fun login(loginRequest: LoginRequest): String {
+) : MemberService {
+    override fun login(loginRequest: LoginRequest): String {
         val member: Member = memberRepository.findByEmail(loginRequest.email)
 
         if (member.password != loginRequest.password || member.email == null) {
@@ -20,7 +21,7 @@ class MemberService (
         return member.email
     }
 
-    fun signUp(signUpRequest: SignUpRequest): String {
+    override fun signUp(signUpRequest: SignUpRequest): String {
         if(signUpRequest.password != signUpRequest.validPassword) throw RuntimeException("비밀 번호 불일치")
 
         if(memberRepository.existsByEmail(signUpRequest.email)) throw RuntimeException("이미 사용 중인 이메일")
@@ -38,7 +39,7 @@ class MemberService (
         return "회원 가입 성공"
     }
 
-    fun findMember(email: String): Member {
+    override fun findMember(email: String): Member {
 
         return memberRepository.findByEmail(email)
     }
