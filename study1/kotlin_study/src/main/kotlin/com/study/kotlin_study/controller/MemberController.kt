@@ -2,10 +2,8 @@ package com.study.kotlin_study.controller
 
 import com.study.kotlin_study.dto.request.LoginRequest
 import com.study.kotlin_study.dto.request.SignUpRequest
-import com.study.kotlin_study.service.MemberService
+import com.study.kotlin_study.service.MemberServiceImpl
 import jakarta.servlet.http.HttpSession
-import org.springframework.web.bind.annotation.DeleteMapping
-import org.springframework.web.bind.annotation.PathVariable
 import org.springframework.web.bind.annotation.PostMapping
 import org.springframework.web.bind.annotation.RequestBody
 import org.springframework.web.bind.annotation.RequestMapping
@@ -14,7 +12,7 @@ import org.springframework.web.bind.annotation.RestController
 @RestController
 @RequestMapping("/api/v1/auth")
 class MemberController(
-    private val memberService: MemberService
+    private val memberService: MemberServiceImpl
 ) {
     @PostMapping("/login")
     fun login(@RequestBody loginRequest: LoginRequest, session: HttpSession): String {
