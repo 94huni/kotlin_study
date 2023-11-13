@@ -7,6 +7,7 @@ import com.study.kotlin_study.entity.Member
 import com.study.kotlin_study.service.impl.BoardService
 import com.study.kotlin_study.service.impl.MemberService
 import jakarta.servlet.http.HttpSession
+import org.springframework.http.HttpStatus
 import org.springframework.web.bind.annotation.*
 
 @RestController
@@ -21,6 +22,7 @@ class BoardController (
     }
 
     @PostMapping
+    @ResponseStatus(value = HttpStatus.CREATED)
     fun createBoard(@RequestBody request: BoardCreateRequest, session: HttpSession): BoardDTO {
         val writer : String = session.getAttribute("Member").toString()
         val member = memberService.findMember(writer)
