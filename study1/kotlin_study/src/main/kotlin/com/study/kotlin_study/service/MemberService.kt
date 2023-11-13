@@ -21,9 +21,9 @@ class MemberService (
     }
 
     fun signUp(signUpRequest: SignUpRequest): String {
-        if(signUpRequest.password != signUpRequest.validPassword) throw RuntimeException("비밀번호 불일치")
+        if(signUpRequest.password != signUpRequest.validPassword) throw RuntimeException("비밀 번호 불일치")
 
-        if(memberRepository.existsByEmail(signUpRequest.email)) throw RuntimeException("이미 사용중인 이메일")
+        if(memberRepository.existsByEmail(signUpRequest.email)) throw RuntimeException("이미 사용 중인 이메일")
 
         val member = Member(
             email = signUpRequest.email,
