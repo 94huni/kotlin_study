@@ -55,4 +55,21 @@ class BoardServiceImpl (
 
         return toDTO(result, member.nickname)
     }
+
+    override fun modifyBoard(request: BoardCreateRequest, boardId: Long , member: Member) {
+        val board = boardRepository.findById(boardId).get()
+
+        if(board.memberId != member.id) throw RuntimeException("자신의 글만 수정 가능")
+
+        val result = Board(
+            id = board.id,
+            title = request.title,
+            content = request.content,
+            createTime = board.createTime,
+            updateTime = LocalDateTime.now(),
+            memberId = board.memberId
+        )
+
+        boardRepository.save(result)
+    }
 }
