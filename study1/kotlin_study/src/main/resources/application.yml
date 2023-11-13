@@ -5,6 +5,11 @@ server:
     encoding:
       charset: UTF-8
       force: true
+  error:
+    whitelabel:
+      enabled: false
+    include-stacktrace: never
+
 spring:
   datasource:
     driver-class-name: org.mariadb.jdbc.Driver
@@ -30,3 +35,4 @@ logging:
       hibernate:
         type.descriptor.sql: trace
         SQL: debug
+
