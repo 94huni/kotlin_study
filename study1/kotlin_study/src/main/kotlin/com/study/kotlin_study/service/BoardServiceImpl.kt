@@ -19,6 +19,10 @@ class BoardServiceImpl (
 ) : BoardService {
     val logger: Logger = LoggerFactory.getLogger(BoardService::class.java)
 
+    override fun getBoardEntity(boardId: Long): Board {
+        return boardRepository.findById(boardId).get()
+    }
+
     private fun toDTO(board: Board, writer: String): BoardDTO {
 
         return BoardDTO(
@@ -71,5 +75,11 @@ class BoardServiceImpl (
         )
 
         boardRepository.save(result)
+    }
+
+    override fun deleteBoard(board: Board, member: Member) {
+        if(board.memberId != member.id) throw RuntimeException("자신의 글만 삭제 가능")
+
+        boardRepository.delete(board)
     }
 }
