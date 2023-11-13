@@ -10,18 +10,18 @@ import java.time.LocalDateTime
 @Entity
 class Board (
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
-    val id: Long,
+    val id: Long? = null,
 
     @Column(length = 50)
-    val title: String,
+    val title: String?,
 
     @Column
-    val content: String,
+    val content: String?,
 
     @Column(name = "m_id")
-    val memberId: Long,
+    val memberId: Long?,
 
     val createTime: LocalDateTime,
 
-    val updateTime: LocalDateTime
+    val updateTime: LocalDateTime? = null
 )
