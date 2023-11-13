@@ -37,4 +37,9 @@ class MemberService (
 
         return "회원 가입 성공"
     }
+
+    fun findMember(email: String): Member {
+
+        return memberRepository.findByEmail(email)
+    }
 }
