@@ -8,7 +8,11 @@ import com.study.kotlin_study.entity.Member
 interface BoardService {
     fun getBoard(boardId: Long): BoardDTO
 
+    fun getBoardEntity(boardId: Long): Board
+
     fun createBoard(request: BoardCreateRequest, member: Member): BoardDTO
 
     fun modifyBoard(request: BoardCreateRequest, boardId: Long , member: Member)
+
+    fun deleteBoard(board: Board, member: Member)
 }
