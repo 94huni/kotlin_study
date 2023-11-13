@@ -39,11 +39,10 @@ class BoardController (
     }
 
     @DeleteMapping("/{boardId}")
-    fun delete(@PathVariable boardId: Long, session: HttpSession):String {
+    @ResponseStatus(value = HttpStatus.NO_CONTENT)
+    fun delete(@PathVariable boardId: Long, session: HttpSession) {
         val member :Member = memberService.findMember(session.getAttribute("Member").toString())
         val board :Board = boardService.getBoardEntity(boardId)
         boardService.deleteBoard(board, member)
-
-        return "${board.title} 글이 삭제 되었습니다."
     }
 }
