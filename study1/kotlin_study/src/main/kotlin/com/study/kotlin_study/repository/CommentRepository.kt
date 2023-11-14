@@ -7,4 +7,6 @@ import org.springframework.data.repository.CrudRepository
 
 interface CommentRepository : CrudRepository<Comment, Long> {
     fun findAllByOrderByIdDesc(pageable: Pageable) : Page<Comment>
+
+    fun findByBoardIdOrderByIdDesc(boardId: Long) : MutableIterable<Comment>
 }
