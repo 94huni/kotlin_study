@@ -9,7 +9,7 @@ import com.study.kotlin_study.entity.Member
 interface CommentService {
     fun createComment(commentRequest: CommentRequest, member: Member, board: Board): CommentDTO
 
-    fun getComment(boardId: Long): List<CommentDTO>
+    fun getComment(boardId: Long): MutableIterable<Comment>
 
     fun modifyComment(commentId: Long, commentRequest: CommentRequest, member: Member)
 
