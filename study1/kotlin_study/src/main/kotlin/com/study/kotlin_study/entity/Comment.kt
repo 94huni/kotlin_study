@@ -18,6 +18,9 @@ class Comment (
     @Column
     val memberId: Long?,
 
+    @Column
+    val boardId: Long?,
+
     val createTime: LocalDateTime?,
 
     val updateTime: LocalDateTime?
