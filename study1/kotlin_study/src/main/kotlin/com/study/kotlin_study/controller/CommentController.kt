@@ -2,11 +2,13 @@ package com.study.kotlin_study.controller
 
 import com.study.kotlin_study.dto.request.CommentRequest
 import com.study.kotlin_study.dto.response.CommentDTO
+import com.study.kotlin_study.entity.Comment
 import com.study.kotlin_study.service.impl.BoardService
 import com.study.kotlin_study.service.impl.CommentService
 import com.study.kotlin_study.service.impl.MemberService
 import jakarta.servlet.http.HttpSession
 import org.springframework.http.HttpStatus
+import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.PathVariable
 import org.springframework.web.bind.annotation.PostMapping
 import org.springframework.web.bind.annotation.RequestBody
@@ -31,5 +33,10 @@ class CommentController (
         val board = boardService.getBoardEntity(boardId)
 
         return commentService.createComment(commentRequest, member, board)
+    }
+
+    @GetMapping("/{boardId}")
+    fun getComments (@PathVariable boardId: Long) : MutableIterable<Comment> {
+        return commentService.getComment(boardId)
     }
 }
