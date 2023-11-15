@@ -8,6 +8,7 @@ import com.study.kotlin_study.service.impl.CommentService
 import com.study.kotlin_study.service.impl.MemberService
 import jakarta.servlet.http.HttpSession
 import org.springframework.http.HttpStatus
+import org.springframework.web.bind.annotation.DeleteMapping
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.PathVariable
 import org.springframework.web.bind.annotation.PostMapping
@@ -49,6 +50,15 @@ class CommentController (
 
         commentService.modifyComment(commentId, request, member)
 
-        return "${member.nickname} 작성 댓글이 삭제 됐습니다."
+        return "${member.nickname} 작성 댓글이 수정 됐습니다."
+    }
+
+    @DeleteMapping("/{commentId}")
+    fun deleteComment(@PathVariable commentId: Long, session: HttpSession): String {
+        val member = memberService.findMember(session.getAttribute("Member").toString())
+
+        commentService.deleteComment(commentId, member)
+        
+        return "${member.nickname} 작석 댓글이 삭제 됐습니다."
     }
 }
