@@ -67,7 +67,11 @@ class CommentServiceImpl(
     }
 
     override fun deleteComment(commentId: Long, member: Member) {
-        TODO("Not yet implemented")
+        val comment = commentRepository.findById(commentId)
+
+        if (comment.get().memberId != member.id) throw RuntimeException("자신의 글만 삭제 가능")
+
+        commentRepository.delete(comment.get())
     }
 
 }
