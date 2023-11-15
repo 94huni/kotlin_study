@@ -7,6 +7,9 @@ import com.study.kotlin_study.entity.Comment
 import com.study.kotlin_study.entity.Member
 import com.study.kotlin_study.repository.CommentRepository
 import com.study.kotlin_study.service.impl.CommentService
+import org.springframework.data.domain.Page
+import org.springframework.data.domain.PageRequest
+import org.springframework.data.domain.Pageable
 import org.springframework.stereotype.Service
 import java.time.LocalDateTime
 
@@ -41,12 +44,26 @@ class CommentServiceImpl(
         return toDTO(result, member, board)
     }
 
-    override fun getComment(boardId: Long): List<CommentDTO> {
-        TODO("Not yet implemented")
+    override fun getComment(boardId: Long): MutableIterable<Comment> {
+        val pageable : Pageable = PageRequest.of(0, 10)
+        return commentRepository.findByBoardIdOrderByIdDesc(boardId)
     }
 
     override fun modifyComment(commentId: Long, commentRequest: CommentRequest, member: Member) {
-        TODO("Not yet implemented")
+        val comment: Comment = commentRepository.findById(commentId).get()
+
+        if(comment.memberId != member.id) throw RuntimeException("자신의 글만 수정 가능")
+
+        val result = Comment(
+            id = comment.id,
+            comment = commentRequest.content,
+            memberId = comment.memberId,
+            boardId = comment.boardId,
+            createTime = comment.createTime,
+            updateTime = LocalDateTime.now()
+        )
+
+        commentRepository.save(result)
     }
 
     override fun deleteComment(commentId: Long, member: Member) {
