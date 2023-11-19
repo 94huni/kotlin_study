@@ -6,7 +6,10 @@ import com.study.kotlin_study.entity.Board
 import com.study.kotlin_study.entity.Member
 import com.study.kotlin_study.service.impl.BoardService
 import com.study.kotlin_study.service.impl.MemberService
+import jakarta.annotation.Nonnull
+import jakarta.annotation.Nullable
 import jakarta.servlet.http.HttpSession
+import org.springframework.data.domain.Page
 import org.springframework.http.HttpStatus
 import org.springframework.web.bind.annotation.*
 
@@ -19,6 +22,12 @@ class BoardController (
     @GetMapping("/{boardId}")
     fun getBoard(@PathVariable boardId: Long): BoardDTO {
         return boardService.getBoard(boardId)
+    }
+
+    @GetMapping
+    fun getBoards(@RequestParam(defaultValue = "0", name = "page") page:Int,
+                  @RequestParam(value = "keyword", required = false)keyword: String): Page<BoardDTO> {
+        return boardService.getBoardPage(page, keyword)
     }
 
     @PostMapping
