@@ -26,7 +26,7 @@ class CommentController (
     private val boardService: BoardService
     ){
 
-    @PostMapping("{boardId}")
+    @PostMapping("/{boardId}")
     @ResponseStatus(value = HttpStatus.CREATED)
     fun createComment(session: HttpSession,
                       @PathVariable boardId: Long,
@@ -58,7 +58,7 @@ class CommentController (
         val member = memberService.findMember(session.getAttribute("Member").toString())
 
         commentService.deleteComment(commentId, member)
-        
+
         return "${member.nickname} 작석 댓글이 삭제 됐습니다."
     }
 }
