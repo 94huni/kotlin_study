@@ -11,6 +11,7 @@ import org.springframework.data.domain.Page
 import org.springframework.data.domain.PageRequest
 import org.springframework.data.domain.Pageable
 import org.springframework.stereotype.Service
+import org.springframework.transaction.annotation.Transactional
 import java.time.LocalDateTime
 
 @Service
@@ -30,6 +31,8 @@ class CommentServiceImpl(
             updateTime = com.updateTime
         )
     }
+
+    @Transactional
     override fun createComment(commentRequest: CommentRequest, member: Member, board: Board): CommentDTO {
         val comment = Comment(
             comment = commentRequest.content,
@@ -49,6 +52,7 @@ class CommentServiceImpl(
         return commentRepository.findByBoardIdOrderByIdDesc(boardId)
     }
 
+    @Transactional
     override fun modifyComment(commentId: Long, commentRequest: CommentRequest, member: Member) {
         val comment: Comment = commentRepository.findById(commentId).get()
 
@@ -66,6 +70,7 @@ class CommentServiceImpl(
         commentRepository.save(result)
     }
 
+    @Transactional
     override fun deleteComment(commentId: Long, member: Member) {
         val comment = commentRepository.findById(commentId)
 

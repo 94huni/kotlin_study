@@ -13,6 +13,7 @@ import org.springframework.data.domain.Page
 import org.springframework.data.domain.PageRequest
 import org.springframework.data.domain.Pageable
 import org.springframework.stereotype.Service
+import org.springframework.transaction.annotation.Transactional
 import java.time.LocalDateTime
 
 @Service
@@ -26,6 +27,7 @@ class BoardServiceImpl (
         return boardRepository.findById(boardId).get()
     }
 
+    @Transactional
     override fun getBoardPage(page: Int, keyword: String?): Page<BoardDTO> {
         val pageable: Pageable = PageRequest.of(page, 10)
 
@@ -70,6 +72,7 @@ class BoardServiceImpl (
         return toDTO(board, writer)
     }
 
+    @Transactional
     override fun createBoard(request: BoardCreateRequest, member: Member): BoardDTO {
 
         logger.info("title : {} writer: {}", request.title, member.nickname)
@@ -86,6 +89,7 @@ class BoardServiceImpl (
         return toDTO(result, member.nickname)
     }
 
+    @Transactional
     override fun modifyBoard(request: BoardCreateRequest, boardId: Long , member: Member) {
         val board = boardRepository.findById(boardId).get()
 
@@ -103,6 +107,7 @@ class BoardServiceImpl (
         boardRepository.save(result)
     }
 
+    @Transactional
     override fun deleteBoard(board: Board, member: Member) {
         if(board.memberId != member.id) throw RuntimeException("자신의 글만 삭제 가능")
 

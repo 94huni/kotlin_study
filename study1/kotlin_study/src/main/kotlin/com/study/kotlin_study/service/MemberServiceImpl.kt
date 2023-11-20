@@ -8,6 +8,7 @@ import com.study.kotlin_study.service.impl.MemberService
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
 import org.springframework.stereotype.Service
+import org.springframework.transaction.annotation.Transactional
 
 @Service
 class MemberServiceImpl (
@@ -15,6 +16,7 @@ class MemberServiceImpl (
 ) : MemberService {
     val logger : Logger = LoggerFactory.getLogger(MemberService::class.java)
 
+    @Transactional
     override fun login(loginRequest: LoginRequest): String {
         logger.info("loginRequest : {}" ,loginRequest.email)
 
@@ -29,6 +31,7 @@ class MemberServiceImpl (
         return member.email
     }
 
+    @Transactional
     override fun signUp(signUpRequest: SignUpRequest): String {
         if(signUpRequest.password != signUpRequest.validPassword) throw RuntimeException("비밀 번호 불일치")
 
