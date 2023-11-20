@@ -32,7 +32,7 @@ class BoardServiceImpl (
         val boardPage: Page<Board> = if(keyword == null) {
             boardRepository.findAll(pageable)
         } else{
-            boardRepository.findByTitleOrderByIdDesc(keyword, pageable)
+            boardRepository.findByTitleContainingOrderByIdDesc(keyword, pageable)
         }
 
         val result: Page<BoardDTO> = boardPage.map { board ->

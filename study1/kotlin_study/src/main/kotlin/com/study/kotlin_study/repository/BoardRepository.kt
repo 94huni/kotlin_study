@@ -8,5 +8,5 @@ import org.springframework.data.repository.CrudRepository
 interface BoardRepository : CrudRepository<Board, Long> {
     fun findAll(pageable: Pageable): Page<Board>
 
-    fun findByTitleOrderByIdDesc(keyword:String, pageable: Pageable) : Page<Board>
+    fun findByTitleContainingOrderByIdDesc(keyword:String, pageable: Pageable) : Page<Board>
 }
