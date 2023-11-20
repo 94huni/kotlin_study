@@ -9,6 +9,9 @@ import com.study.kotlin_study.repository.MemberRepository
 import com.study.kotlin_study.service.impl.BoardService
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
+import org.springframework.data.domain.Page
+import org.springframework.data.domain.PageRequest
+import org.springframework.data.domain.Pageable
 import org.springframework.stereotype.Service
 import java.time.LocalDateTime
 
@@ -21,6 +24,29 @@ class BoardServiceImpl (
 
     override fun getBoardEntity(boardId: Long): Board {
         return boardRepository.findById(boardId).get()
+    }
+
+    override fun getBoardPage(page: Int, keyword: String?): Page<BoardDTO> {
+        val pageable: Pageable = PageRequest.of(page, 10)
+
+        val boardPage: Page<Board> = if(keyword == null) {
+            boardRepository.findAll(pageable)
+        } else{
+            boardRepository.findByTitleOrderByIdDesc(keyword, pageable)
+        }
+
+        val result: Page<BoardDTO> = boardPage.map { board ->
+            val member = memberRepository.findById(board.memberId)
+            logger.info("board Title : ${board.title}")
+            toDTO(board, member.nickname)
+        }
+
+        result.content.forEach{ boardDTO ->
+            logger.info("DTO: $boardDTO")
+        }
+
+        return result
+
     }
 
     private fun toDTO(board: Board, writer: String): BoardDTO {
